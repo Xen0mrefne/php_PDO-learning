@@ -112,7 +112,7 @@ a {
     stroke: var(--white);
 }
 
-.btn-hover-red:hover {
+.btn-red.btn-hover:hover {
     background-color: var(--red-opacity);
 }
 
@@ -140,7 +140,7 @@ a {
     stroke: var(--white);
 }
 
-.btn-hover-green:hover {
+.btn-green.btn-hover:hover {
     background-color: var(--green-opacity);
 }
 
@@ -168,7 +168,7 @@ a {
     stroke: var(--white);
 }
 
-.btn-hover-blue:hover {
+.btn-blue.btn-hover:hover {
     background-color: var(--blue-opacity);
 }
 
@@ -196,7 +196,7 @@ a {
     stroke: var(--white);
 }
 
-.btn-hover-black:hover {
+.btn-black.btn-hover:hover {
     background-color: var(--black-opacity);
 }
 

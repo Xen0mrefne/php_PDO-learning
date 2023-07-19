@@ -58,5 +58,6 @@ try {
             }
         ?>
     </div>
-    <button class="btn btn-green btn-fill" type="submit">Submit</button>
+    <button class="btn btn-blue btn-fill" type="submit">Edit</button>
+    <a class="btn btn-black btn-hover" style="text-align: center;" href="http://localhost:80/person">Cancel</a>
 </form>

@@ -25,6 +25,6 @@ try {
     <p>Are you sure you want to delete person <?php
     echo $person["firstName"]." ".$person["lastName"]
     ?>?</p>
-    <a href="http://localhost/person">Cancel</a>
-    <a href="http://localhost/person/delete/action.php">Delete</a>
+    <a class="btn btn-black btn-hover" href="http://localhost/person">Cancel</a>
+    <a class="btn btn-red btn-fill" href="http://localhost/person/delete/action.php">Delete</a>
 </div>

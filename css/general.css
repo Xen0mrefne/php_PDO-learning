@@ -9,10 +9,11 @@ main {
     
     column-gap: 20px;
     align-items: center;
+    justify-content: center;
 }
 
 .persons form {
-    width: 300px;
+    min-width: 300px;
     padding: 20px;
     border-radius: 10px;
     background-color: var(--white);
@@ -48,6 +49,10 @@ main {
     border-bottom: 2px solid var(--black);
 }
 
+.person-table th {
+    padding: 5px;
+}
+
 .person-table td {
     padding: 5px;
     background-color: var(--white);
@@ -68,6 +73,7 @@ main {
 
 .delete-confirm {
     background-color: var(--white);
+    border-radius: 10px;
     color: var(--black);
     display: flex;
     flex-wrap: wrap;

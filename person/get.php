@@ -35,8 +35,8 @@ try {
                                 <td><?php echo $person["lastName"] ?></td>
                                 <td><?php echo $person["email"] ?></td>
                                 <td><?php echo $person["reg_date"] ?></td>
-                                <td class="action-col"><a href="?PEdit=<?php echo $person["id"] ?>" class="btn btn-blue btn-hover-blue">Edit</a></td>
-                                <td class="action-col"><a href="?PDelete=<?php echo $person["id"] ?>" class="btn btn-red btn-hover-red">Delete</a></td>
+                                <td class="action-col"><a href="?PEdit=<?php echo $person["id"] ?>" class="btn btn-blue btn-hover">Edit</a></td>
+                                <td class="action-col"><a href="?PDelete=<?php echo $person["id"] ?>" class="btn btn-red btn-hover">Delete</a></td>
                             </tr>
                         <?php
                     }
