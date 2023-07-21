@@ -1,14 +1,26 @@
 <?php
 
-class Person {
+class User {
+    private $id;
     private $firstName;
     private $lastName;
     private $email;
+    private $regDate;
 
-    function __construct($firstName, $lastName, $email = NULL) {
+    function __construct($id = NULL, $firstName, $lastName, $email = NULL, $regDate = NULL) {
+        $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
+        $this->regDate = $regDate;
+    }
+    
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
     }
 
     public function getFirstName() {
@@ -33,6 +45,14 @@ class Person {
 
     public function setEmail($email) {
         $this->email = $email;
+    }
+
+    public function getRegDate() {
+        return $this->regDate;
+    }
+
+    public function setRegDate($regDate) {
+        $this->regDate = $regDate;
     }
 }
 

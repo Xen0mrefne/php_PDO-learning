@@ -2,31 +2,36 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require "/xampp/htdocs/person/tableCheck.php";
+    require "/xampp/htdocs/users/tableCheck.php";
     require "/xampp/htdocs/utils/security.php";
-    
+
     session_start();
-    
+
     try {
-        
+
         require "/xampp/htdocs/db/connection.php";
 
         $_SESSION["errors"] = array();
-    
-        $stmt = $conn->prepare("INSERT INTO Person (firstName, lastName, email)
-        VALUES (:firstName, :lastName, :email)");
-    
+
+        $user_id = $_SESSION["user-edit"];
+
+        $stmt = $conn->prepare("UPDATE Users SET
+        firstName=:firstName,
+        lastName=:lastName,
+        email=:email
+        WHERE id=$user_id");
+
         $stmt->bindParam(':firstName', $firstName);
         $stmt->bindParam(':lastName', $lastName);
         $stmt->bindParam(':email', $email);
-    
+
 
         if (empty($_POST["firstName"])) {
             $_SESSION["errors"]["firstName"] = "First name is required";
         } else {
             $firstName = sanitize($_POST["firstName"]);
             if (!preg_match("/^[a-zA-Z-' ]*$/", $firstName)) {
-                $_SESSION["errors"]["firstName"] = "First name must only contain letters and spaces.";
+                $_SESSION["errors"]["firstName"] = "First name must contain only letters and spaces.";
             }
         }
 
@@ -49,16 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute();
         }
 
-        header("Location: http://localhost:80");
-        
+        header("Location: http://localhost:80/users");
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
-    
-    $conn = null;
-} else {
-    header("Location: http://localhost:80");
 }
-
 
 ?>

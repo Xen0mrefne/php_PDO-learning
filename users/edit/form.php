@@ -1,19 +1,18 @@
 <?php
 
-
 try {
     require "/xampp/htdocs/db/connection.php";
 
-    $person_id = $_GET["PEdit"];
+    $user_id = $_GET["PEdit"];
 
 
-    $stmt = $conn->prepare("SELECT * FROM Person WHERE id = $person_id");
+    $stmt = $conn->prepare("SELECT * FROM Users WHERE id = $user_id");
     $stmt->execute();
 
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    $person = $stmt->fetch();
+    $user = $stmt->fetch();
 
-    $_SESSION["person-edit"] = $person_id;
+    $_SESSION["user-edit"] = $user_id;
 
 } catch (PDOException $e) {
     echo $e->getMessage();
@@ -21,11 +20,11 @@ try {
 
 ?>
 
-<form action="http://localhost/person/edit/action.php" method="post">
+<form action="http://localhost/users/edit/action.php" method="post">
     <div class="form-input">
         <label for="firstName">First Name:</label>
         <input class="input" id="firstName" name="firstName" type="text" placeholder="First name"
-        value="<?php echo $person["firstName"] ?>">
+        value="<?php echo $user["firstName"] ?>">
         <?php
             if (isset($_SESSION["errors"]["firstName"])) {
                 ?>
@@ -37,7 +36,7 @@ try {
     <div class="form-input">
         <label for="lastName">Last Name:</label>
         <input class="input" id="lastName" name="lastName" type="text" placeholder="Last name"
-        value="<?php echo $person["lastName"] ?>">
+        value="<?php echo $user["lastName"] ?>">
         <?php
             if (isset($_SESSION["errors"]["lastName"])) {
                 ?>
@@ -49,7 +48,7 @@ try {
     <div class="form-input">
         <label for="email">Email:</label>
         <input class="input" id="email" name="email" type="text" placeholder="Email"
-        value="<?php echo $person["email"] ?>">
+        value="<?php echo $user["email"] ?>">
         <?php
             if (isset($_SESSION["errors"]["email"])) {
                 ?>
@@ -59,5 +58,5 @@ try {
         ?>
     </div>
     <button class="btn btn-blue btn-fill" type="submit">Edit</button>
-    <a class="btn btn-black btn-hover" style="text-align: center;" href="http://localhost:80/person">Cancel</a>
+    <a class="btn btn-black btn-hover" style="text-align: center;" href="http://localhost:80/users">Cancel</a>
 </form>

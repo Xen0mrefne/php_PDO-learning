@@ -1,5 +1,5 @@
 <?php
 
-header("Location: /person")
+header("Location: /users")
 
 ?>

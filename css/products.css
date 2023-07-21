@@ -1,0 +1,56 @@
+header {
+    background-color: var(--white);
+    color: var(--black);
+    height: 80px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+}
+
+header > nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header > nav > .user {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+main {
+    min-height: 100vh;
+}
+
+.user-select-wrapper {
+    padding: 20px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.user-select-wrapper form {
+    background-color: var(--white);
+    width: 300px;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.user-select-wrapper form select {
+    padding: 5px;
+}
+
+.user-select-wrapper form .options {
+    display: flex;
+    column-gap: 10px;
+}
+
+.user-select-wrapper form .options > * {
+    flex-basis: 0;
+    flex-grow: 1;
+}

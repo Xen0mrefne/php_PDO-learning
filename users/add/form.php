@@ -1,10 +1,4 @@
-<?php
-
-
-
-?>
-
-<form action="http://localhost:80/person/add/action.php" method="post">
+<form action="http://localhost:80/users/add/action.php" method="post">
     <div class="form-input">
         <label for="firstName">First Name:</label>
         <input class="input" id="firstName" name="firstName" type="text" placeholder="First name">

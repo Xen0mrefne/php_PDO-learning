@@ -1,8 +1,19 @@
+header {
+    background-color: var(--red);
+    height: 80px;
+    
+    padding: 0 5%;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 main {
     min-height: 100vh;
 }
 
-.persons {
+.users {
     min-height: 100vh;
     padding: 5% 5%;
     display: flex;
@@ -12,7 +23,7 @@ main {
     justify-content: center;
 }
 
-.persons form {
+.users form {
     min-width: 300px;
     padding: 20px;
     border-radius: 10px;
@@ -24,7 +35,7 @@ main {
     row-gap: 10px;
 }
 
-.persons form > button {
+.users form > button {
     margin-top: 10px;
 }
 
@@ -35,35 +46,35 @@ main {
     width: 100%;
 }
 
-.person-table {
+.user-table {
     width: 100%;
     overflow-y: scroll;
     border-collapse: collapse;
 }
 
-.person-table thead th {
+.user-table thead th {
     text-align: left;
 }
 
-.person-table tbody tr {
+.user-table tbody tr {
     border-bottom: 2px solid var(--black);
 }
 
-.person-table th {
+.user-table th {
     padding: 5px;
 }
 
-.person-table td {
+.user-table td {
     padding: 5px;
     background-color: var(--white);
     color: var(--black);
 }
 
-.person-table td:first-child {
+.user-table td:first-child {
     border-radius: 10px 0 0 10px;
 }
 
-.person-table td:last-child {
+.user-table td:last-child {
     border-radius: 0 10px 10px 0;
 }
 
