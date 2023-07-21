@@ -3,7 +3,7 @@
 session_start();
 
 if (isset($_SESSION["currentUser"])){
-    require "/xampp/htdocs/users/user.php";
+    require "/xampp/htdocs/entity/user.php";
     $user = new User(
         $_SESSION["currentUser"]["id"],
         $_SESSION["currentUser"]["firstName"],
@@ -43,11 +43,48 @@ if (isset($_SESSION["currentUser"])){
         </nav>
     </header>
     <main>
+        <?php
+            if (isset($_SESSION["currentUser"])) {
+                require("/xampp/htdocs/products/add/form.php");
+            }
+        ?>
         <section class="products">
-            <div class="add">
-                
-            </div>
+            <?php
+
+                require("/xampp/htdocs/products/get.php");
+
+                $products = getProducts();
+
+                if (!empty($products)) {
+
+                    require("/xampp/htdocs/entity/product.php");
+                    ?>
+                        <ul class="product-list">
+                            <?php
+                            foreach($products as $p) {
+                                $product = new Product(
+                                    $p["id"],
+                                    $p["productName"],
+                                    $p["productDesc"],
+                                    $p["updatedDate"]
+                                );
+
+                                ?>
+                                    <li class="product">
+                                        <h3><?php echo $product->getProductName() ?></h3>
+                                        <p class="description"><?php echo $product->getProductDesc() ?></p>
+                                        <button class="btn btn-blue btn-hover">Add to cart</button>
+                                    </li>
+                                <?php
+                            }
+                            ?>
+                        </ul>
+                    <?php
+                }
+            ?>
         </section>
     </main>
+
+    <script src="./js/script.js"></script>
 </body>
 </html>

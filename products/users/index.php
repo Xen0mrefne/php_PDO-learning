@@ -32,7 +32,7 @@ session_start();
                                             <option value="" disabled selected></option>
                                         <?php
                                     }
-                                    require "/xampp/htdocs/users/user.php";
+                                    require "/xampp/htdocs/entity/user.php";
                                     foreach($users as $u) {
                                         $user = new User(
                                             $u["id"],
@@ -51,7 +51,8 @@ session_start();
                                                         echo "selected";
                                                     }
                                                 }
-                                            ?>>
+                                            ?>
+                                            >
                                                 <?php echo $user->getFirstName()." ".$user->getLastName() ?>
                                             </option>
                                         <?php

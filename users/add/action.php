@@ -8,19 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     session_start();
     
     try {
-        
-        require "/xampp/htdocs/db/connection.php";
-
         $_SESSION["errors"] = array();
     
-        $stmt = $conn->prepare("INSERT INTO Users (firstName, lastName, email)
-        VALUES (:firstName, :lastName, :email)");
-    
-        $stmt->bindParam(':firstName', $firstName);
-        $stmt->bindParam(':lastName', $lastName);
-        $stmt->bindParam(':email', $email);
-    
-
         if (empty($_POST["firstName"])) {
             $_SESSION["errors"]["firstName"] = "First name is required";
         } else {
@@ -34,6 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["errors"]["lastName"] = "Last name is required";
         } else {
             $lastName = sanitize($_POST["lastName"]);
+            if (!preg_match("/^[a-zA-Z-' ]*$/", $lastName)) {
+                $_SESSION["errors"]["lastName"] = "Last name must only contain letters and spaces.";
+            }
         }
 
         if (empty($_POST["email"])) {
@@ -46,6 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (empty($_SESSION["errors"])) {
+            require "/xampp/htdocs/db/connection.php";
+            $stmt = $conn->prepare(
+                "INSERT INTO Users (firstName, lastName, email)
+                VALUES (:firstName, :lastName, :email)"
+            );
+        
+            $stmt->bindParam(':firstName', $firstName);
+            $stmt->bindParam(':lastName', $lastName);
+            $stmt->bindParam(':email', $email);
             $stmt->execute();
         }
 

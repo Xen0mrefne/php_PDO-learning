@@ -217,7 +217,7 @@ a {
 .input {
     padding: 10px;
     border-radius: 5px;
-    border: 2px solid var(--dark-gray);
+    border: 1px solid var(--dark-gray);
 }
 
 .input:focus {
@@ -225,7 +225,7 @@ a {
 }
 
 .input-red {
-    border: 2px solid var(--red);
+    border: 1px solid var(--red);
 }
 
 .relative {

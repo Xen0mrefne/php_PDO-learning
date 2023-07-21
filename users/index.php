@@ -43,7 +43,7 @@ session_start();
                             </thead>
                             <tbody>
                                 <?php
-                                    require "/xampp/htdocs/users/user.php";
+                                    require "/xampp/htdocs/entity/user.php";
                                     foreach($users as $u) {
                                         $user = new User(
                                             $u["id"],

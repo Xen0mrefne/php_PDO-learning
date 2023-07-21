@@ -1,8 +1,8 @@
 <?php
 
-require "/xampp/htdocs/users/tableCheck.php";
 
 function getUsers() {
+    require "/xampp/htdocs/users/tableCheck.php";
     try {
         require "/xampp/htdocs/db/connection.php";
     
