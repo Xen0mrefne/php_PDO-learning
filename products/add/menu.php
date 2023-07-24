@@ -1,4 +1,3 @@
-<button id="add-product-show" class="btn btn-green btn-fill">Add product</button>
 <div class="add-menu <?php if(!empty($_SESSION["errors"])) echo "active" ?>">
     <form action="./add/action.php" method="post">
         <div class="form-input">

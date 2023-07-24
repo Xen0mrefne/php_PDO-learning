@@ -3,7 +3,6 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require "/xampp/htdocs/products/tableCheck.php";
     require "/xampp/htdocs/utils/security.php";
-    require "/xampp/htdocs/users/user.php";
 
     session_start();
 
