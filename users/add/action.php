@@ -2,8 +2,8 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require "/xampp/htdocs/users/tableCheck.php";
-    require "/xampp/htdocs/utils/security.php";
+    require(__DIR__."/../tableCheck.php");
+    require(__DIR__."/../../utils/security.php");
     
     session_start();
     
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (empty($_SESSION["errors"])) {
-            require "/xampp/htdocs/db/connection.php";
+            require(__DIR__."/../../db/connection.php");
             $stmt = $conn->prepare(
                 "INSERT INTO Users (firstName, lastName, email)
                 VALUES (:firstName, :lastName, :email)"
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute();
         }
 
-        header("Location: http://localhost:80");
+        header("Location: http://localhost:80/users");
         
     } catch (PDOException $e) {
         echo $e->getMessage();

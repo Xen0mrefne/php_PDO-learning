@@ -3,10 +3,11 @@
 session_start();
 
 if (isset($_SESSION["currentUser"])) {
-    if (!isset($_GET["productId"])) {
+    if (!isset($_GET["ProductId"]) || !isset($_GET["change"])) {
         header("Location: http://localhost:80/products");
         die();
     }
+    $_SESSION["editingCart"] = true;
 
     require(__DIR__."/tableCheck.php");
 
@@ -14,44 +15,51 @@ if (isset($_SESSION["currentUser"])) {
         require(__DIR__."/../../db/connection.php");
         require(__DIR__."/../../utils/security.php");
 
-        /* Check if product is already in cart */
-
         $stmt = $conn->prepare(
-            "SELECT productId FROM Cart WHERE userId=:userId AND productId=:productId"
+            "SELECT amount FROM Cart WHERE userId=:userId AND productId=:productId"
         );
-
         $stmt->bindParam(":userId", $userId);
         $stmt->bindParam(":productId", $productId);
 
         $userId = $_SESSION["currentUser"]["id"];
-        $productId = sanitize($_GET["productId"]);
-        
+        $productId = sanitize($_GET["ProductId"]);
+
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-        /* Return to products page if product is already in cart */
-        
-        if (!empty($stmt->fetch())) {
+        $result = $stmt->fetch();
+
+        if (empty($result)) {
             header("Location: http://localhost:80/products");
             die();
         }
-        
-        /* Add product in cart */
+
+        $amount = $result["amount"];
+
+        $change = sanitize($_GET["change"]);
+
+        if ($change === "substract") {
+            if ($amount < 2) {
+                header("Location: http://localhost:80/products");
+                die();
+            } else {
+                $amount -= 1;
+            }
+
+        }
+        if ($change === "add") {
+            $amount += 1;
+        }
 
         $stmt = $conn->prepare(
-            "INSERT INTO Cart (userId, productId, amount)
-            VALUES (:userId, :productId, :amount)"
+            "UPDATE Cart SET amount=:amount WHERE userId=:userId AND productId=:productId"
         );
-        
+        $stmt->bindParam(":amount", $amount);
         $stmt->bindParam(":userId", $userId);
         $stmt->bindParam(":productId", $productId);
-        $stmt->bindParam(":amount", $amount);
-        
-        $userId = $_SESSION["currentUser"]["id"];
-        $productId = sanitize($_GET["productId"]);
-        $amount = 1;
 
         $stmt->execute();
+
 
         $conn = null;
 
@@ -59,6 +67,9 @@ if (isset($_SESSION["currentUser"])) {
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
+} else {
+    header("Location: http://localhost:80/products");
+    die();
 }
 
 ?>

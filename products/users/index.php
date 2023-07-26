@@ -18,7 +18,7 @@ session_start();
     <div class="user-select-wrapper">
             <?php
                 
-                require "/xampp/htdocs/users/get.php";
+                require (__DIR__."/../../users/get.php");
 
                 $users = getUsers();
 
@@ -32,7 +32,7 @@ session_start();
                                             <option value="" disabled selected></option>
                                         <?php
                                     }
-                                    require "/xampp/htdocs/entity/user.php";
+                                    require(__DIR__."/../../entity/user.php");
                                     foreach($users as $u) {
                                         $user = new User(
                                             $u["id"],

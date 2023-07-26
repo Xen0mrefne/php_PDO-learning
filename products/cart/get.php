@@ -1,10 +1,10 @@
 <?php
 
 function getCart() {
-    require("/xampp/htdocs/products/cart/tableCheck.php");
+    require(__DIR__."/tableCheck.php");
 
     try {
-        require("/xampp/htdocs/db/connection.php");
+        require(__DIR__."/../../db/connection.php");
 
         $stmt = $conn->prepare(
             "SELECT
@@ -41,7 +41,7 @@ function getCart() {
                 $product["amount"]
             ));
         }
-        
+    
         $conn = null;
         
         return $cart;

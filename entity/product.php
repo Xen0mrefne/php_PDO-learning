@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-class Product {
+class Product implements JsonSerializable {
     private $id;
     private $productName;
     private $productDesc;
@@ -11,6 +11,15 @@ class Product {
         $this->productName = $productName;
         $this->productDesc = $productDesc;
         $this->updatedDate = $updatedDate;
+    }
+
+    function jsonSerialize(): mixed {
+        return [
+            'id'=> $this->id,
+            'productName'=> $this->productName,
+            'productDesc'=> $this->productDesc,
+            'updatedDate'=> $this->updatedDate
+        ];
     }
 
     public function getId() {

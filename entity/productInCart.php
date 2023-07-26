@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-class ProductInCart {
+class ProductInCart implements JsonSerializable {
     private int $user_id;
     private Product $product;
     private int $amount;
@@ -9,6 +9,14 @@ class ProductInCart {
         $this->user_id = $user_id;
         $this->product = $product;
         $this->amount = $amount;
+    }
+
+    function jsonSerialize(): mixed {
+        return [
+            'userId'=> $this->user_id,
+            'product'=> $this->product,
+            'amount'=> $this->amount
+        ];
     }
 
     public function getUserId(): int {

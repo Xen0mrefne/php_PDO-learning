@@ -2,8 +2,8 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require("/xampp/htdocs/products/tableCheck.php");
-    require("/xampp/htdocs/utils/security.php");
+    require(__DIR__."/../tableCheck.php");
+    require(__DIR__."/../../utils/security.php");
 
     session_start();
     
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (empty($_SESSION["errors"])) {
-            require("/xampp/htdocs/db/connection.php");
+            require(__DIR__."/../../db/connection.php");
 
             $stmt = $conn->prepare(
                 "INSERT INTO Products (productName, productDesc)

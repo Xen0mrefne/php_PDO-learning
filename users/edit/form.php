@@ -1,18 +1,20 @@
 <?php
 
 try {
-    require "/xampp/htdocs/db/connection.php";
+    require(__DIR__."/../../db/connection.php");
+    require(__DIR__."/../../utils/security.php");
 
-    $user_id = $_GET["PEdit"];
-
-
-    $stmt = $conn->prepare("SELECT * FROM Users WHERE id = $user_id");
+    
+    
+    $stmt = $conn->prepare("SELECT * FROM Users WHERE id=:userId");
+    $stmt->bindParam(":userId", $userId);
+    $userId = sanitize($_GET["PEdit"]);
     $stmt->execute();
 
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $user = $stmt->fetch();
 
-    $_SESSION["user-edit"] = $user_id;
+    $_SESSION["user-edit"] = $userId;
 
 } catch (PDOException $e) {
     echo $e->getMessage();

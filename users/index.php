@@ -23,8 +23,8 @@ session_start();
             <?php
 
             if (!isset($_GET["PEdit"]) && !isset($_GET["PDelete"])) {
-                require "/xampp/htdocs/users/add/form.php";
-                require "/xampp/htdocs/users/get.php";
+                require(__DIR__."/add/form.php");
+                require(__DIR__."/get.php");
 
                 $users = getUsers();
 
@@ -43,7 +43,7 @@ session_start();
                             </thead>
                             <tbody>
                                 <?php
-                                    require "/xampp/htdocs/entity/user.php";
+                                    require(__DIR__."/../entity/user.php");
                                     foreach($users as $u) {
                                         $user = new User(
                                             $u["id"],
@@ -75,10 +75,10 @@ session_start();
                 }
             } else {
                 if (isset($_GET["PEdit"])) {
-                    require "/xampp/htdocs/users/edit/form.php";
+                    require(__DIR__."/edit/form.php");
                 }
                 if (isset($_GET["PDelete"])) {
-                    require "/xampp/htdocs/users/delete/confirmation.php";
+                    require(__DIR__."/delete/confirmation.php");
                 }
             }
 

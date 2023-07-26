@@ -1,7 +1,7 @@
 <?php
 
 try {
-    require "/xampp/htdocs/db/connection.php";
+    require(__DIR__."/../db/connection.php");
 
     $sql = "CREATE TABLE IF NOT EXISTS Users(
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

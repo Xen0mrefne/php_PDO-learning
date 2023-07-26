@@ -2,29 +2,20 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require "/xampp/htdocs/users/tableCheck.php";
-    require "/xampp/htdocs/utils/security.php";
+    require __DIR__."/../tableCheck.php";
+    require __DIR__."/../../utils/security.php";
 
     session_start();
 
     try {
 
-        require "/xampp/htdocs/db/connection.php";
+        require __DIR__."/../../db/connection.php";
 
         $_SESSION["errors"] = array();
 
-        $user_id = $_SESSION["user-edit"];
-
-        $stmt = $conn->prepare("UPDATE Users SET
-        firstName=:firstName,
-        lastName=:lastName,
-        email=:email
-        WHERE id=$user_id");
-
-        $stmt->bindParam(':firstName', $firstName);
-        $stmt->bindParam(':lastName', $lastName);
-        $stmt->bindParam(':email', $email);
-
+        
+        
+        $userId = $_SESSION["user-edit"];
 
         if (empty($_POST["firstName"])) {
             $_SESSION["errors"]["firstName"] = "First name is required";
@@ -51,10 +42,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (empty($_SESSION["errors"])) {
+            $stmt = $conn->prepare("UPDATE Users SET
+            firstName=:firstName,
+            lastName=:lastName,
+            email=:email
+            WHERE id=:userId");
+
+            $stmt->bindParam(":userId", $userId);
+            $stmt->bindParam(':firstName', $firstName);
+            $stmt->bindParam(':lastName', $lastName);
+            $stmt->bindParam(':email', $email);
             $stmt->execute();
+            header("Location: http://localhost:80/users");
+        } else {
+            header("Location: http://localhost:80/users/?PEdit=$userId");
         }
 
-        header("Location: http://localhost:80/users");
+        die();
     } catch (PDOException $e) {
         echo $e->getMessage();
     }

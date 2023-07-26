@@ -2,9 +2,9 @@
 
 session_start();
 
-require("/xampp/htdocs/entity/user.php");
-require("/xampp/htdocs/entity/product.php");
-require("/xampp/htdocs/entity/productInCart.php");
+require(__DIR__."/../entity/user.php");
+require(__DIR__."/../entity/product.php");
+require(__DIR__."/../entity/productInCart.php");
 
 if (isset($_SESSION["currentUser"])){
     $user = new User(
@@ -26,11 +26,13 @@ if (isset($_SESSION["currentUser"])){
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/products.css">
+
+    <script src="./js/cart.js"></script>
 </head>
 <body>
     <header>
         <nav>
-            <a href="http://localhost:80/users" class="btn btn-black btn-hover">Manage users</a>
+            <a href="http://localhost:80/users" class="btn btn-blue btn-hover">Manage users</a>
             <div class="user">
                 <span>
                     <?php
@@ -54,14 +56,14 @@ if (isset($_SESSION["currentUser"])){
                         <button id="cart-show" class="btn btn-green btn-fill">Cart</button>
                     </div>
                 <?php
-                require("/xampp/htdocs/products/add/menu.php");
-                require("/xampp/htdocs/products/cart/menu.php");
+                require(__DIR__."/add/menu.php");
+                require(__DIR__."/cart/menu.php");
             }
         ?>
         <section class="products">
             <?php
 
-                require("/xampp/htdocs/products/get.php");
+                require(__DIR__."/get.php");
 
                 $products = getProducts();
 
@@ -93,18 +95,20 @@ if (isset($_SESSION["currentUser"])){
                                         <h3><?php echo $product->getProductName() ?></h3>
                                         <p class="description"><?php echo $product->getProductDesc() ?></p>
                                         <?php
-                                            if (!$isInCart) {
-                                                ?>
-                                                    <a
-                                                    href=
-                                                    "http://localhost:80/products/cart/add.php/?productId=<?php echo $product->getId() ?>"
-                                                    class="btn btn-blue btn-hover"
-                                                    >Add to cart</a>
-                                                <?php
-                                            } else {
-                                                ?>
-                                                    <button class="btn btn-disabled">Is in cart</button>
-                                                <?php
+                                            if (isset($_SESSION["currentUser"])) {
+                                                if (!$isInCart) {
+                                                    ?>
+                                                        <a
+                                                        href=
+                                                        "http://localhost:80/products/cart/add.php/?productId=<?php echo $product->getId() ?>"
+                                                        class="btn btn-blue btn-hover"
+                                                        >Add to cart</a>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                        <button class="btn btn-disabled">Is in cart</button>
+                                                    <?php
+                                                }
                                             }
                                         ?>
                                     </li>

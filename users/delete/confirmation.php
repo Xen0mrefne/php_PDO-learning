@@ -1,13 +1,14 @@
 <?php
 
 try {
-    require "/xampp/htdocs/db/connection.php";
+    require(__DIR__."/../../db/connection.php");
+    require(__DIR__."/../../utils/security.php");
+    
+    $stmt = $conn->prepare("SELECT * FROM Users WHERE id=:userId");
+    $stmt->bindParam(":userId", $user_id);
+    
+    $user_id = sanitize($_GET["PDelete"]);
 
-
-    $user_id = $_GET["PDelete"];
-
-
-    $stmt = $conn->prepare("SELECT * FROM Users WHERE id = $user_id");
     $stmt->execute();
 
     $stmt->setFetchMode(PDO::FETCH_ASSOC);

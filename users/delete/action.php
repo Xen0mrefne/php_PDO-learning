@@ -3,11 +3,13 @@
 session_start();
 
 try {
-    require "/xampp/htdocs/db/connection.php";
+    require(__DIR__."/../../db/connection.php");
 
-    $user_id = $_SESSION["user-delete"];
-
-    $stmt = $conn->prepare("DELETE FROM Users WHERE id=$user_id");
+    
+    $stmt = $conn->prepare("DELETE FROM Users WHERE id=:userId");
+    $stmt->bindParam(":userId", $userId);
+    
+    $userId = $_SESSION["user-delete"];
     $stmt->execute();
 
     header("Location: http://localhost:80/users");

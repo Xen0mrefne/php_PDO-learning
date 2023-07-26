@@ -1,7 +1,7 @@
 <?php
 
 try {
-    require "/xampp/htdocs/db/connection.php";
+    require(__DIR__."/../../db/connection.php");
 
     $sql = "CREATE TABLE IF NOT EXISTS Cart(
         userId INT(6) UNSIGNED NOT NULL,

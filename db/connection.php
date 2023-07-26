@@ -1,6 +1,6 @@
 <?php
 
-require "/xampp/htdocs/db/credentials.php";
+require(__DIR__."/credentials.php");
 
 $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
 

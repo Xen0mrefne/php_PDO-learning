@@ -1,10 +1,10 @@
 <?php
 
     function getProducts() {
-        require("/xampp/htdocs/products/tableCheck.php");
+        require(__DIR__."/tableCheck.php");
 
         try {
-            require("/xampp/htdocs/db/connection.php");
+            require(__DIR__."/../db/connection.php");
 
             $stmt = $conn->prepare("SELECT * FROM Products");
             $stmt->execute();

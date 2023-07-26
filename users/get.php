@@ -2,9 +2,9 @@
 
 
 function getUsers() {
-    require "/xampp/htdocs/users/tableCheck.php";
+    require(__DIR__."/tableCheck.php");
     try {
-        require "/xampp/htdocs/db/connection.php";
+        require(__DIR__."/../db/connection.php");
     
         $stmt = $conn->prepare("SELECT * FROM Users");
         $stmt->execute();
