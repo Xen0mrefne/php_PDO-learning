@@ -12,6 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
     
             $errors = array();
+
+            $productId = $_SESSION["product-edit"];
     
             if (empty($_POST["productName"])) {
                 $errors["productName"] = "Product name is required";
@@ -42,8 +44,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 require(__DIR__."/../../db/connection.php");
     
                 $stmt = $conn->prepare(
-                    "INSERT INTO Products (productName, productDesc, productPrice, publishedBy)
-                    VALUES (:productName, :productDesc, :productPrice, :publishedBy)"
+                    "UPDATE Products
+                    SET
+                    productName=:productName,
+                    productDesc=:productDesc,
+                    productPrice=:productPrice,
+                    publishedBy=:publishedBy
+                    WHERE id=:productId"
                 );
     
                 $stmt->bindParam(":productName", $productName);
@@ -51,11 +58,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bindParam(":productPrice", $productPrice);
                 $stmt->bindParam(":publishedBy", $publishedBy);
 
+                $stmt->bindParam(":productId", $productId);
+
                 $publishedBy = $_SESSION["currentUser"]["id"];
 
                 $stmt->execute();
             } else {
                 $_SESSION["errors"] = $errors;
+                header("Location: http://localhost:80/products/?PEdit=$productId");
+                die();
             }
     
             header("Location: http://localhost:80/products");

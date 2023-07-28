@@ -36,6 +36,8 @@ function getCart() {
                     $product["id"],
                     $product["productName"],
                     $product["productDesc"],
+                    null,
+                    null,
                     $product["updatedDate"]
                 ),
                 $product["amount"]

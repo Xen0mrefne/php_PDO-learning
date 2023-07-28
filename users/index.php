@@ -22,7 +22,7 @@ session_start();
         <section class="users">
             <?php
 
-            if (!isset($_GET["PEdit"]) && !isset($_GET["PDelete"])) {
+            if (!isset($_GET["UEdit"]) && !isset($_GET["UDelete"])) {
                 require(__DIR__."/add/form.php");
                 require(__DIR__."/get.php");
 
@@ -59,8 +59,8 @@ session_start();
                                                 <td><?php echo $user->getLastName() ?></td>
                                                 <td><?php echo $user->getEmail() ?></td>
                                                 <td><?php echo $user->getRegDate() ?></td>
-                                                <td class="action-col"><a href="?PEdit=<?php echo $user->getId() ?>" class="btn btn-blue btn-hover">Edit</a></td>
-                                                <td class="action-col"><a href="?PDelete=<?php echo $user->getId() ?>" class="btn btn-red btn-hover">Delete</a></td>
+                                                <td class="action-col"><a href="?UEdit=<?php echo $user->getId() ?>" class="btn btn-blue btn-hover">Edit</a></td>
+                                                <td class="action-col"><a href="?UDelete=<?php echo $user->getId() ?>" class="btn btn-red btn-hover">Delete</a></td>
                                             </tr>
                                         <?php
                                     }
@@ -74,10 +74,10 @@ session_start();
                     <?php
                 }
             } else {
-                if (isset($_GET["PEdit"])) {
+                if (isset($_GET["UEdit"])) {
                     require(__DIR__."/edit/form.php");
                 }
-                if (isset($_GET["PDelete"])) {
+                if (isset($_GET["UDelete"])) {
                     require(__DIR__."/delete/confirmation.php");
                 }
             }

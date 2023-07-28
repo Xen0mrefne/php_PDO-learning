@@ -4,12 +4,16 @@ class Product implements JsonSerializable {
     private $id;
     private $productName;
     private $productDesc;
+    private $productPrice;
+    private $publishedBy;
     private $updatedDate;
 
-    function __construct($id = NULL, $productName, $productDesc, $updatedDate = NULL) {
+    function __construct($id = NULL, $productName, $productDesc, $productPrice, $publishedBy, $updatedDate = NULL) {
         $this->id = $id;
         $this->productName = $productName;
         $this->productDesc = $productDesc;
+        $this->productPrice = $productPrice;
+        $this->publishedBy = $publishedBy;
         $this->updatedDate = $updatedDate;
     }
 
@@ -18,6 +22,8 @@ class Product implements JsonSerializable {
             'id'=> $this->id,
             'productName'=> $this->productName,
             'productDesc'=> $this->productDesc,
+            'productPrice'=> $this->productPrice,
+            'publishedBy'=> $this->publishedBy,
             'updatedDate'=> $this->updatedDate
         ];
     }
@@ -44,6 +50,22 @@ class Product implements JsonSerializable {
 
     public function setProductDesc($productDesc) {
         $this->productDesc = $productDesc;
+    }
+
+    public function getProductPrice() {
+        return $this->productPrice;
+    }
+
+    public function setProductPrice($productPrice) {
+        $this->productPrice = $productPrice;
+    }
+
+    public function getPublishedBy() {
+        return $this->publishedBy;
+    }
+
+    public function setPublishedBy($publishedBy) {
+        $this->publishedBy = $publishedBy;
     }
 
     public function getUpdatedDate(){

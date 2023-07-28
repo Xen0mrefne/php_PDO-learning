@@ -50,14 +50,16 @@ if (isset($_SESSION["currentUser"])){
     <main>
         <?php
             if (isset($_SESSION["currentUser"])) {
+                if (!isset($_GET["PEdit"]) && !isset($_GET["PDelete"])) {
                 ?>
                     <div class="menu-list">
                         <button id="add-product-show" class="btn btn-green btn-fill">Add product</button>
                         <button id="cart-show" class="btn btn-green btn-fill">Cart</button>
                     </div>
                 <?php
-                require(__DIR__."/add/menu.php");
-                require(__DIR__."/cart/menu.php");
+                    require(__DIR__."/add/menu.php");
+                    require(__DIR__."/cart/menu.php");
+                }
             }
         ?>
         <section class="products">
@@ -65,60 +67,85 @@ if (isset($_SESSION["currentUser"])){
 
                 require(__DIR__."/get.php");
 
-                $products = getProducts();
+                if (!isset($_GET["PEdit"]) && !isset($_GET["PDelete"])) {
 
-                if (!empty($products)) {
-                    ?>
-                        <ul class="product-list">
-                            <?php
-                            foreach($products as $p) {
-                                $product = new Product(
-                                    $p["id"],
-                                    $p["productName"],
-                                    $p["productDesc"],
-                                    $p["updatedDate"]
-                                );
+                    $products = getAllProducts();
+    
+                    if (!empty($products)) {
+                        ?>
+                            <ul class="product-list">
+                                <?php
+                                foreach($products as $p) {
+                                    $product = new Product(
+                                        $p["id"],
+                                        $p["productName"],
+                                        $p["productDesc"],
+                                        $p["productPrice"],
+                                        $p["publishedBy"],
+                                        $p["updatedDate"]
+                                    );
 
-                                $isInCart = false;
-
-                                if (!empty($cart)) {
-                                    foreach($cart as $productInCart) {
-                                        if ($product->getId() === $productInCart->getProduct()->getId()) {
-                                            $isInCart = true;
-                                            break;
+                                    $publisher = getPublisher($p["publishedBy"]);
+    
+                                    $isInCart = false;
+    
+                                    if (!empty($cart)) {
+                                        foreach($cart as $productInCart) {
+                                            if ($product->getId() === $productInCart->getProduct()->getId()) {
+                                                $isInCart = true;
+                                                break;
+                                            }
                                         }
                                     }
-                                }
-
-                                ?>
-                                    <li class="product">
-                                        <h3><?php echo $product->getProductName() ?></h3>
-                                        <p class="description"><?php echo $product->getProductDesc() ?></p>
-                                        <?php
-                                            if (isset($_SESSION["currentUser"])) {
-                                                if (!$isInCart) {
-                                                    ?>
-                                                        <a
-                                                        href=
-                                                        "http://localhost:80/products/cart/add.php/?productId=<?php echo $product->getId() ?>"
-                                                        class="btn btn-blue btn-hover"
-                                                        >Add to cart</a>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                        <button class="btn btn-disabled">Is in cart</button>
-                                                    <?php
+    
+                                    ?>
+                                        <li class="product">
+                                            <h3><?php echo $product->getProductName() ?></h3>
+                                            <p class="description"><?php echo $product->getProductDesc() ?></p>
+                                            <p class="price">$<?php echo $product->getProductPrice() ?></p>
+                                            <p class="publisher">Published by <?php echo $publisher["firstName"]." ".$publisher["lastName"] ?></p>
+                                            <?php
+                                                if (isset($_SESSION["currentUser"])) {
+                                                    if (!$isInCart) {
+                                                        ?>
+                                                            <a
+                                                            href=
+                                                            "http://localhost:80/products/cart/add.php/?productId=<?php echo $product->getId() ?>"
+                                                            class="btn btn-blue btn-hover"
+                                                            >Add to cart</a>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                            <button class="btn btn-disabled">Is in cart</button>
+                                                        <?php
+                                                    }
+                                                    if ($_SESSION["currentUser"]["id"] === $product->getPublishedBy()) {
+                                                        ?>
+                                                            <div class="options">
+                                                                <a href="http://localhost:80/products/?PEdit=<?php echo $product->getId() ?>">Edit</a>
+                                                                <a href="http://localhost:80/products/?PDelete=<?php echo $product->getId() ?>">Delete</a>
+                                                            </div>
+                                                        <?php
+                                                    }
                                                 }
-                                            }
-                                        ?>
-                                    </li>
-                                <?php
-                            }
-                            ?>
-                        </ul>
-                    <?php
+                                            ?>
+                                        </li>
+                                    <?php
+                                }
+                                ?>
+                            </ul>
+                        <?php
+                    }
+                } else {
+                    if (isset($_GET["PEdit"])) {
+                        require(__DIR__."/edit/menu.php");
+                    }
+                    if (isset($_GET["PDelete"])) {
+                        require(__DIR__."/delete/confirmation.php");
+                    }
                 }
             ?>
+
         </section>
     </main>
 

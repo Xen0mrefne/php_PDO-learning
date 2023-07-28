@@ -7,7 +7,7 @@ try {
     $stmt = $conn->prepare("SELECT * FROM Users WHERE id=:userId");
     $stmt->bindParam(":userId", $user_id);
     
-    $user_id = sanitize($_GET["PDelete"]);
+    $user_id = sanitize($_GET["UDelete"]);
 
     $stmt->execute();
 

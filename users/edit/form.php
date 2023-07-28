@@ -8,7 +8,7 @@ try {
     
     $stmt = $conn->prepare("SELECT * FROM Users WHERE id=:userId");
     $stmt->bindParam(":userId", $userId);
-    $userId = sanitize($_GET["PEdit"]);
+    $userId = sanitize($_GET["UEdit"]);
     $stmt->execute();
 
     $stmt->setFetchMode(PDO::FETCH_ASSOC);

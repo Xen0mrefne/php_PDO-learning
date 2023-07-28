@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute();
             header("Location: http://localhost:80/users");
         } else {
-            header("Location: http://localhost:80/users/?PEdit=$userId");
+            header("Location: http://localhost:80/users/?UEdit=$userId");
         }
 
         die();
