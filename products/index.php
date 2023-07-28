@@ -81,11 +81,9 @@ if (isset($_SESSION["currentUser"])){
                                         $p["productName"],
                                         $p["productDesc"],
                                         $p["productPrice"],
-                                        $p["publishedBy"],
+                                        $p["publisherFirstName"]." ".$p["publisherLastName"],
                                         $p["updatedDate"]
                                     );
-
-                                    $publisher = getPublisher($p["publishedBy"]);
     
                                     $isInCart = false;
     
@@ -103,7 +101,7 @@ if (isset($_SESSION["currentUser"])){
                                             <h3><?php echo $product->getProductName() ?></h3>
                                             <p class="description"><?php echo $product->getProductDesc() ?></p>
                                             <p class="price">$<?php echo $product->getProductPrice() ?></p>
-                                            <p class="publisher">Published by <?php echo $publisher["firstName"]." ".$publisher["lastName"] ?></p>
+                                            <p class="publisher">Published by <?php echo $product->getPublishedBy() ?></p>
                                             <?php
                                                 if (isset($_SESSION["currentUser"])) {
                                                     if (!$isInCart) {
@@ -119,11 +117,15 @@ if (isset($_SESSION["currentUser"])){
                                                             <button class="btn btn-disabled">Is in cart</button>
                                                         <?php
                                                     }
-                                                    if ($_SESSION["currentUser"]["id"] === $product->getPublishedBy()) {
+                                                    if ($_SESSION["currentUser"]["id"] === $p["publishedBy"]) {
                                                         ?>
                                                             <div class="options">
-                                                                <a href="http://localhost:80/products/?PEdit=<?php echo $product->getId() ?>">Edit</a>
-                                                                <a href="http://localhost:80/products/?PDelete=<?php echo $product->getId() ?>">Delete</a>
+                                                                <a href="http://localhost:80/products/?PEdit=<?php echo $product->getId() ?>">
+                                                                    <?php include(__DIR__."/../assets/edit.html") ?>
+                                                                </a>
+                                                                <a href="http://localhost:80/products/?PDelete=<?php echo $product->getId() ?>">
+                                                                    <?php include(__DIR__."/../assets/delete.html") ?>
+                                                                </a>
                                                             </div>
                                                         <?php
                                                     }

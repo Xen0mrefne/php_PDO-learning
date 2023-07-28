@@ -162,9 +162,20 @@ main {
 
 .product .options {
     position: absolute;
-    top: 2px;
-    right: 2px;
+    top: 5px;
+    right: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
+
+.product .options svg {
+    height: 40px;
+    aspect-ratio: 1/1;
+    padding: 3px;
+}
+
 
 .delete-confirm {
     margin: 0 auto;

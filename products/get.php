@@ -7,7 +7,11 @@
             require(__DIR__."/../db/connection.php");
 
             $stmt = $conn->prepare(
-                "SELECT * FROM Products"
+                "SELECT Products.*,
+                Users.firstName AS publisherFirstName,
+                Users.lastName AS publisherLastName
+                FROM Products INNER JOIN Users
+                ON Products.publishedBy=Users.id"
             );
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -30,7 +34,7 @@
             $stmt = $conn->prepare(
                 "SELECT *
                 FROM Products
-                WHERE id=:productId"
+                WHERE Products.id=:productId"
             );
             $stmt->bindParam(":productId", $productId);
 
@@ -41,31 +45,6 @@
             $conn = null;
 
             return $product;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    function getPublisher($userId) {
-        require(__DIR__."/tableCheck.php");
-
-        try {
-            require(__DIR__."/../db/connection.php");
-
-            $stmt = $conn->prepare(
-                "SELECT firstName, lastName
-                FROM Users
-                WHERE id=:userId"
-            );
-            $stmt->bindParam(":userId", $userId);
-
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            $user = $stmt->fetch();
-            $conn = null;
-
-            return $user;
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
