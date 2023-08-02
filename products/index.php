@@ -26,8 +26,6 @@ if (isset($_SESSION["currentUser"])){
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/products.css">
-
-    <script src="./js/cart.js"></script>
 </head>
 <body>
     <header>
@@ -152,5 +150,6 @@ if (isset($_SESSION["currentUser"])){
     </main>
 
     <script src="./js/script.js"></script>
+    <script src="./js/cart.js"></script>
 </body>
 </html>

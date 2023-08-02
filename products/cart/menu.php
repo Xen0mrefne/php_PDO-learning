@@ -12,24 +12,16 @@
                 <?php
                 foreach($cart as $productInCart) {  
                     ?>
-                    <li class="cart-item">
+                    <li data-product="<?php echo $productInCart->getProduct()->getId() ?>" class="cart-item">
                         <h3><?php echo $productInCart->getProduct()->getProductName() ?></h3>
                         <div class="amount">
-                            <a
-                            class="btn btn-blue btn-hover <?php if ($productInCart->getAmount() < 2) echo "btn-disabled" ?>"
-                            href=
-                            "http://localhost:80/products/cart/edit.php?change=substract&ProductId=<?php echo $productInCart->getProduct()->getId() ?>"
-                            >
+                            <button data-action="substract" class="btn btn-blue btn-hover <?php if ($productInCart->getAmount() < 2) echo "btn-disabled" ?>">
                                 &lt;
-                            </a>
+                            </button>
                             <p><?php echo $productInCart->getAmount() ?></p>
-                            <a
-                            class="btn btn-blue btn-hover"
-                            href=
-                            "http://localhost:80/products/cart/edit.php?change=add&ProductId=<?php echo $productInCart->getProduct()->getId() ?>"
-                            >
+                            <button data-action="add" class="btn btn-blue btn-hover">
                                 &gt;
-                            </a>
+                            </button>
                         </div>
                         <a
                         class="remove btn btn-red btn-fill btn-circle"
