@@ -39,6 +39,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
             }
+
+            if (empty($_POST["productStock"])) {
+                $errors["productStock"] = "Stock is required";
+            } else {
+                $productStock = sanitize($_POST["productStock"]);
+                if (!is_numeric($productStock)) {
+                    $errors["productStock"] = "Stock must only contain a number";
+                } else {
+                    if ($productStock < 1) {
+                        $errors["productStock"] = "Stock must be higher than zero";
+                    }
+                }
+            }
     
             if (empty($errors)) {
                 require(__DIR__."/../../db/connection.php");
@@ -49,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     productName=:productName,
                     productDesc=:productDesc,
                     productPrice=:productPrice,
+                    productStock=:productStock
                     publishedBy=:publishedBy
                     WHERE id=:productId"
                 );
@@ -56,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bindParam(":productName", $productName);
                 $stmt->bindParam(":productDesc", $productDesc);
                 $stmt->bindParam(":productPrice", $productPrice);
+                $stmt->bindParam(":productStock", $productStock);
                 $stmt->bindParam(":publishedBy", $publishedBy);
 
                 $stmt->bindParam(":productId", $productId);

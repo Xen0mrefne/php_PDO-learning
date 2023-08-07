@@ -23,12 +23,9 @@
                                 &gt;
                             </button>
                         </div>
-                        <a
-                        class="remove btn btn-red btn-fill btn-circle"
-                        href="http://localhost:80/products/cart/remove.php/?ProductId=<?php echo $productInCart->getProduct()->getId() ?>"
-                        >
+                        <button data-action="remove" class="btn btn-red btn-fill btn-circle">
                             X
-                        </a>
+                        </button>
                     </li>
                     <?php
                 }

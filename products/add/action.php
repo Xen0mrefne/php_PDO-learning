@@ -37,18 +37,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
             }
+
+            if (empty($_POST["productStock"])) {
+                $errors["productStock"] = "Stock is required";
+            } else {
+                $productStock = sanitize($_POST["productStock"]);
+                if (!is_numeric($productStock)) {
+                    $errors["productStock"] = "Stock must only contain a number";
+                } else {
+                    if ($productStock < 1) {
+                        $errors["productStock"] = "Stock must be higher than zero";
+                    }
+                }
+            }
     
             if (empty($errors)) {
                 require(__DIR__."/../../db/connection.php");
     
                 $stmt = $conn->prepare(
-                    "INSERT INTO Products (productName, productDesc, productPrice, publishedBy)
-                    VALUES (:productName, :productDesc, :productPrice, :publishedBy)"
+                    "INSERT INTO Products (productName, productDesc, productPrice, productStock, publishedBy)
+                    VALUES (:productName, :productDesc, :productPrice, :productStock, :publishedBy)"
                 );
     
                 $stmt->bindParam(":productName", $productName);
                 $stmt->bindParam(":productDesc", $productDesc);
                 $stmt->bindParam(":productPrice", $productPrice);
+                $stmt->bindParam(":productStock", $productStock);
                 $stmt->bindParam(":publishedBy", $publishedBy);
 
                 $publishedBy = $_SESSION["currentUser"]["id"];

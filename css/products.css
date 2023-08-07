@@ -237,7 +237,7 @@ main {
     padding: 20px;
 }
 
-.cart-item .remove {
+.cart-item button[data-action="remove"] {
     position: absolute;
     top: 0.1rem;
     right: 0;

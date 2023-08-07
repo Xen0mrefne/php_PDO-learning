@@ -4,7 +4,6 @@ header('Content-Type: application/json; charset=utf-8');
 
 $body = json_decode(file_get_contents("php://input"));
 
-
 session_start();
 
 if (isset($_SESSION["currentUser"])) {

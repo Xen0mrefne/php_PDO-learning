@@ -7,6 +7,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
     case "PUT":
         require(__DIR__."/put.php");
         break;
+    case "DELETE":
+        require(__DIR__."/delete.php");
+        break;
 }
 
 ?>

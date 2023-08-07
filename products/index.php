@@ -79,6 +79,7 @@ if (isset($_SESSION["currentUser"])){
                                         $p["productName"],
                                         $p["productDesc"],
                                         $p["productPrice"],
+                                        $p["productStock"],
                                         $p["publisherFirstName"]." ".$p["publisherLastName"],
                                         $p["updatedDate"]
                                     );
@@ -95,20 +96,19 @@ if (isset($_SESSION["currentUser"])){
                                     }
     
                                     ?>
-                                        <li class="product">
+                                        <li class="product" data-product="<?php echo $product->getId() ?>">
                                             <h3><?php echo $product->getProductName() ?></h3>
                                             <p class="description"><?php echo $product->getProductDesc() ?></p>
                                             <p class="price">$<?php echo $product->getProductPrice() ?></p>
+                                            <p class="stock">Stock: <?php echo $product->getProductStock() ?></p>
                                             <p class="publisher">Published by <?php echo $product->getPublishedBy() ?></p>
                                             <?php
                                                 if (isset($_SESSION["currentUser"])) {
                                                     if (!$isInCart) {
                                                         ?>
-                                                            <a
-                                                            href=
-                                                            "http://localhost:80/products/cart/add.php/?productId=<?php echo $product->getId() ?>"
-                                                            class="btn btn-blue btn-hover"
-                                                            >Add to cart</a>
+                                                            <button data-action="addToCart" class="btn btn-blue btn-hover">
+                                                                Add to cart
+                                                            </button>
                                                         <?php
                                                     } else {
                                                         ?>

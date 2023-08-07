@@ -1,15 +1,19 @@
 <?php
 
+header('Content-Type: application/json; charset=utf-8');
+
 session_start();
 
 if (isset($_SESSION["currentUser"])) {
-    if (!isset($_GET["ProductId"])) {
-        header("Location: http://localhost:80/products");
+    $response = array();
+    if (!isset($_GET["product"])) {
+        http_response_code(400);
+        $response["error"] = "Bad request";
+        echo json_encode($response);
         die();
     }
-    $_SESSION["editingCart"] = true;
 
-    require(__DIR__."/tableCheck.php");
+    require(__DIR__."/../../products/cart/tableCheck.php");
 
     try {
         require(__DIR__."/../../db/connection.php");
@@ -23,19 +27,21 @@ if (isset($_SESSION["currentUser"])) {
         $stmt->bindParam(":productId", $productId);
 
         $userId = $_SESSION["currentUser"]["id"];
-        $productId = sanitize($_GET["ProductId"]);
+        $productId = sanitize($_GET["product"]);
 
         $stmt->execute();
 
 
         $conn = null;
 
-        header("Location: http://localhost:80/products");
+        http_response_code(200);
+        $response["message"] = "Product has been removed from cart.";
+        echo json_encode($response);
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
 } else {
-    header("Location: http://localhost:80/products");
+    http_response_code(401);
     die();
 }
 

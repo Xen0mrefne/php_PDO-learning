@@ -61,6 +61,19 @@ try {
                 }
             ?>
         </div>
+        <div class="form-input">
+            <label for="productStock">Stock:</label>
+            <input class="input" id="productStock" name="productStock" type="number">
+            <?php         
+                if (isset($_SESSION["errors"]["productStock"])) {
+                    ?>
+                        <p style="color: red; font-size: 12px">
+                            <?php echo $_SESSION["errors"]["productStock"] ?>
+                        </p>
+                    <?php
+                }
+            ?>
+        </div>
         <div class="options">
             <a href="http://localhost:80/products" class="btn btn-black btn-hover cancel">Cancel</a>
             <button class="btn btn-green btn-fill" type="submit">Edit</button>
